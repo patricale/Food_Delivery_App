@@ -83,7 +83,7 @@ Questa guida descrive la procedura per testare l'intero ecosistema del progetto,
     * (Opzionale) Torna nel browser del Cliente: lo stato si sarà aggiornato in tempo reale.
     * Clicca su **"Pronto"**: L'ordine si sposta in **"Pronto per il ritiro"**.
 
-### 🔑 Missione C: Verifica Sicurezza e Consegna (OTP)
+### Missione C: Verifica Sicurezza e Consegna (OTP)
 1.  **Recupero Codice:** Torna nella vista del Cliente. Sulla card dell'ordine pronto apparirà il codice univoco (es: `A1B2C3`).
 2.  **Consegna:** Lato Esercente, clicca su **"Consegna"**.
 3.  **Test Errore:** Inserisci un codice sbagliato. Il sistema deve bloccare l'azione mostrando un feedback di errore.
