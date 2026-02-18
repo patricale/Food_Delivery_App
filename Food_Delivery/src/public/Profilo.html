@@ -1,0 +1,138 @@
+<!-- SVOLTO DA COLUCCI PASQUALE, MATR. 358141-->
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Profilo - Food Delivery Campus</title>
+    
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm" style="background-color: var(--fdc-primary) !important;">
+        <div class="container">
+            <div class="fdc-logo-box">
+                FOOD DELIVERY CAMPUS
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item" id="ristoranti">
+                        <a class="nav-link" href="Cliente.html" id="link-home"><i class="bi bi-shop"></i>Home</a>
+                    </li>
+                    <li class="nav-item" id="storico">
+                        <a class="nav-link" href="Storico.html"><i class="bi bi-clock-history"></i>I Miei Ordini</a>
+                    </li>
+                    <li class="nav-item" id="nav-profilo">
+                        <a class="nav-link active fw-bold" href="Profilo.html">Profilo</a>
+                    </li>
+                    <li class="nav-item d-flex">
+                        <a href="index.html" class="btn-fdc-light" id="logout-btn">LOGOUT</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h4 class="mb-0" style="color: var(--fdc-primary);">I tuoi dati</h4>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div id="feedbackBox" class="alert d-none" role="alert"></div>
+
+                        <form id="profileForm">
+                            <h6 class="text-uppercase text-muted border-bottom pb-2 mb-3">Credenziali</h6>
+                            
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" readonly disabled>
+                                <small class="text-muted">L'email non può essere modificata.</small>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="password">Nuova Password</label>
+                                    <input type="password" class="form-control" id="password" placeholder="Lascia vuoto per non cambiare">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="confirmPassword">Conferma Password</label>
+                                    <input type="password" class="form-control" id="confirmPassword">
+                                </div>
+                            </div>
+
+                            <h6 class="text-uppercase text-muted border-bottom pb-2 my-3">Dettagli Profilo</h6>
+
+                            <div id="studentFields" class="d-none">
+                                <div class="form-row">
+                                    <label for="nome">Nome</label>
+                                    <input type="text" class="form-control" id="nome">
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <label for="cognome">Cognome</label>
+                                    <input type="text" class="form-control" id="cognome">
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="matricola">Matricola</label>
+                                    <input type="text" class="form-control readonly-input" id="matricola" readonly>
+                                    <small class="text-danger">* La matricola è un dato immutabile.</small>
+                                </div>
+                            </div>
+
+                            <div id="merchantFields" class="d-none">
+                                <div class="form-group">
+                                    <label for="ragione_sociale">Ragione Sociale</label>
+                                    <input type="text" class="form-control" id="ragione_sociale">
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <label for="p_iva">Partita IVA</label>
+                                    <input type="text" class="form-control" id="p_iva">
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <label for="indirizzo_ritiro">Indirizzo Ritiro</label>
+                                    <input type="text" class="form-control" id="indirizzo_ritiro">
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="descrizione">Descrizione Attività</label>
+                                    <textarea class="form-control" id="descrizione" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="mt-4">
+                            
+                            <div class="text-right">
+                                <button type="button" id="btn-annulla" class="btn btn-secondary btn-fdc btn-primary mr-2" style="background-color: #b8b8b8; border-color: #b8b8b8;">Annulla</button>
+                                <button type="submit" class="btn-fdc btn-primary px-4">Salva Modifiche</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="fdc-footer mt-auto">
+        <div class="container text-center">
+            <p class="small mb-0">© 2026 Food Delivery Campus - Università di Parma</p>
+        </div>
+    </footer>
+
+    <script src="vendor/JQuery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

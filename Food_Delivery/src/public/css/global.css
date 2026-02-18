@@ -1,0 +1,281 @@
+/* ==========================================================================
+   CONFIGURAZIONE ATOMICA (DESIGN TOKENS)
+   Queste variabili sono il "punto unico di verità". Se cambi un colore qui, 
+   si aggiorna in tutta l'applicazione istantaneamente.
+   ========================================================================== */
+:root {
+    /* Colori Identitari */
+    --fdc-primary: #d35400;       /* Arancione Food Delivery Campus: usato per brand e azioni */
+    --fdc-primary-dark: #ba4a00;  /* Variante per stati :hover (quando passi il mouse) */
+    --fdc-dark: #0b1320;          /* Blu Notte: colore del footer e dei testi principali */
+    
+    /* Superfici e Sfondi */
+    --fdc-bg: #f8f9fa;            /* Grigio "nuvola" per lo sfondo delle pagine (non stanca la vista) */
+    --fdc-white: #ffffff;         /* Bianco puro per card, input e contenuti in primo piano */
+    
+    /* Feedback Visivo (Semantica) */
+    --fdc-status-new: #f1c40f;    /* Giallo: indica ordini che richiedono attenzione immediata */
+    --fdc-status-ready: #2ecc71;  /* Verde: indica che l'azione è completata (es. pronto al ritiro) */
+    --fdc-status-danger: #e74c3c; /* Rosso: per ordini rifiutati o non ritirati */
+    
+    /* Costanti di Design */
+    --fdc-radius: 12px;           /* Curvatura standard: rende l'interfaccia moderna e "morbida" */
+    --fdc-footer-text: #94a3b8;   /* Colore testo per leggibilità ottimale sul blu scuro */
+    --fdc-transition: all 0.2s ease; /* Transizione fluida per ogni cambio di stato/colore */
+}
+
+/* ==========================================================================
+   STRUTTURA BASE (LAYOUT)
+   Regole per garantire che il footer non "salti" in mezzo allo schermo.
+   ========================================================================== */
+html, body { 
+    height: 100%; /* Forza l'altezza massima per permettere al footer di andare in fondo */
+}
+
+body {
+    background-color: var(--fdc-bg);
+    color: var(--fdc-dark);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column; /* Necessario per lo "Sticky Footer" */
+}
+
+/* ==========================================================================
+   COMPONENTI MASTER (DA COPIARE E INCOLLARE NEGLI HTML)
+   ========================================================================== */
+
+/* .fdc-card 
+   USO: Contenitore principale per i ristoranti o i singoli ordini.
+   STRUTTURA: <div class="fdc-card p-3"> ... </div>
+*/
+.fdc-card {
+    background: var(--fdc-white);
+    border-radius: var(--fdc-radius);
+    border: 1px solid rgba(0,0,0,0.08); /* Bordo leggero per separare le card su sfondi chiari */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04); /* Ombra discreta per dare profondità */
+    transition: var(--fdc-transition);
+    overflow: hidden; /* Impedisce alle immagini interne di coprire gli angoli arrotondati */
+}
+.fdc-card:hover { 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Effetto "sollevamento" al passaggio del mouse */
+}
+
+/* .btn-fdc 
+   USO: Pulsante standard per invio form o azioni principali.
+*/
+.btn-fdc {
+    background-color: var(--fdc-primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    transition: var(--fdc-transition);
+    cursor: pointer;
+}
+.btn-fdc:hover { background-color: var(--fdc-primary-dark); color: white; }
+
+/* .btn-fdc-light 
+   USO: Specifico per il LOGOUT nella Navbar arancione (Alto Contrasto).
+*/
+.btn-fdc-light {
+    background-color: var(--fdc-white);
+    color: var(--fdc-primary) !important;
+    border: 2px solid var(--fdc-white);
+    padding: 5px 15px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    text-decoration: none; /* Rimuove la sottolineatura se usato su tag <a> */
+}
+
+/* .fdc-logo-box 
+   USO: Etichetta testuale del brand nella Navbar o nel Login.
+*/
+.fdc-logo-box {
+    background: var(--fdc-primary);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-weight: 800;
+}
+
+/* ==========================================================================
+   FOOTER (VERSIONE SLIM)
+   Occupa poco spazio e rimane sempre ancorato in fondo alla pagina.
+   ========================================================================== */
+.fdc-footer {
+    background-color: var(--fdc-dark);
+    color: var(--fdc-footer-text);
+    padding: 15px 0; /* Altezza ridotta per non rubare spazio ai dati della dashboard */
+    width: 100%;
+}
+
+/* ==========================================================================
+   ⬇️ SEZIONE AGGIUNTA PER MODULO ESERCENTE ⬇️
+   Queste regole servono solo all'Esercente e non toccano gli altri file.
+   ========================================================================== */
+
+/* Nuove variabili specifiche (aggiunte allo scope globale) */
+:root {
+    --fdc-gray-light: #f1f3f5;    /* Grigio chiaro (es. header tabelle) */
+    --fdc-action-accept: #00b20c; /* Verde Smeraldo (Accetta) */
+    --fdc-action-reject: #c92422; /* Rosso Corallo (Rifiuta) */
+    --fdc-action-info: #435ff2;   /* Blu Oceano (Pronto/Info) */
+}
+
+/* 1. CLASSE DI COMPATIBILITÀ e STATI DISABILITATI
+   Gestisce .btn-brand (legacy) e applica il fix per la trasparenza su .btn-fdc
+*/
+.btn-brand {
+    background-color: var(--fdc-primary);
+    color: white;
+    border: 1px solid var(--fdc-primary);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    transition: var(--fdc-transition);
+    cursor: pointer;
+}
+.btn-brand:hover { 
+    background-color: var(--fdc-primary-dark); 
+    color: white; 
+    box-shadow: 0 4px 6px rgba(211, 84, 0, 0.3);
+}
+
+/* FIX TRASPARENZA:
+   Impedisce a Bootstrap di rendere trasparenti i bottoni disabilitati.
+   Applica opacità 0.5 per effetto "sbiadito" ma mantiene il colore.
+*/
+.btn-fdc:disabled, .btn-fdc.disabled,
+.btn-brand:disabled, .btn-brand.disabled {
+    background-color: var(--fdc-primary) !important;
+    border-color: var(--fdc-primary) !important;
+    color: white !important;
+    opacity: 0.5 !important;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* 2. Bottoni Azione Rapida (Piccoli) per la Kanban */
+.btn-custom-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+    border-radius: 0.5rem; 
+    color: white;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+    font-weight: 700;
+    border: 2px solid transparent; 
+    transition: var(--fdc-transition);
+}
+
+/* Varianti Colore Bottoni - FIX TESTO BIANCO */
+.btn-accetta {
+    background-color: var(--fdc-action-accept);
+    border-color: var(--fdc-action-accept);
+    color: white !important; /* Forza testo bianco */
+}
+.btn-accetta:hover {
+    background-color: var(--fdc-white);
+    color: var(--fdc-action-accept) !important;
+}
+
+.btn-rifiuta {
+    background-color: var(--fdc-action-reject);
+    border-color: var(--fdc-action-reject);
+    color: white !important; /* Forza testo bianco (risolve problema modali) */
+}
+.btn-rifiuta:hover {
+    background-color: var(--fdc-white);
+    color: var(--fdc-action-reject) !important;
+}
+
+.btn-pronto {
+    background-color: var(--fdc-action-info);
+    border-color: var(--fdc-action-info);
+    color: white !important; /* Forza testo bianco */
+}
+.btn-pronto:hover {
+    background-color: var(--fdc-white);
+    color: var(--fdc-action-info) !important;
+}
+
+/* FIX ICONA SCOMPARSA:
+   Forza l'icona a diventare blu quando si passa sopra il tasto 'Pronto',
+   ignorando lo stile inline del Javascript che la renderebbe bianca su bianco.
+*/
+.btn-pronto:hover i,
+.btn-pronto:hover svg {
+    color: var(--fdc-action-info) !important;
+    stroke: var(--fdc-action-info) !important;
+}
+
+/* 3. Input Codice OTP */
+.input-otp-custom {
+    background-color: #f2f4f6; 
+    color: #333;
+    font-size: 0.85rem;
+    border: none;
+    font-weight: 700;
+    text-align: center;
+}
+.input-otp-custom::placeholder {
+    color: #adb5bd;
+    font-weight: 400;
+}
+.input-otp-custom:focus {
+    background-color: #e9ecef;
+    box-shadow: none;
+    outline: 2px solid var(--fdc-primary); 
+}
+
+/* 4. Header Tabella Menu */
+.table-header-gray th {
+    background-color: var(--fdc-gray-light) !important; 
+    color: #000000; 
+    vertical-align: middle !important;
+    height: 50px;
+    border: none !important;
+}
+.fdc-table-header-gray th {
+    background-color: var(--fdc-gray-light) !important; 
+    color: #000000; 
+    vertical-align: middle !important;
+    height: 50px;
+    border: none !important;
+}
+
+/* 5. Utility: Separatori e Link */
+.hr-thick {
+    border-top: 1px solid #d1d5db;
+    opacity: 0.90;
+    margin: 0.5rem 0;
+}
+
+.btn-non-ritirato {
+    color: var(--fdc-primary);
+    font-size: 0.8rem;      
+    font-weight: 400;      
+    text-decoration: underline; 
+    background: none;
+    border: none;
+    padding: 0;
+    transition: var(--fdc-transition);
+    cursor: pointer;
+}
+.btn-non-ritirato:hover {
+    color: var(--fdc-primary-dark);
+    text-decoration: none; 
+}
+
+.order-footer-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; 
+    margin-top: 10px;
+}

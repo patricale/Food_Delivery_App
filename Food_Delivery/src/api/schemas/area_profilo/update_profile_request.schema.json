@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Aggiornamento Profilo Request",
+  "type": "object",
+  "properties": {
+    "password": { "type": "string", "minLength": 8 }
+  },
+  "oneOf": [
+    {
+      "title": "Payload Cliente",
+      "required": ["nome", "cognome"],
+      "properties": {
+        "password": { "type": "string" },
+        "nome": { "type": "string", "minLength": 2 },
+        "cognome": { "type": "string", "minLength": 2 }
+      },
+      "additionalProperties": false
+    },
+    {
+      "title": "Payload Esercente",
+      "required": ["ragione_sociale", "p_iva", "indirizzo_ritiro"],
+      "properties": {
+        "password": { "type": "string" },
+        "ragione_sociale": { "type": "string" },
+        "p_iva": { "type": "string", "pattern": "^[0-9]{11}$" },
+        "indirizzo_ritiro": { "type": "string" },
+        "descrizione": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  ]
+}

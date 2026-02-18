@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Restaurant List",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": { "type": "integer" },
+      "nome": { "type": "string" },
+      "immagine_url": { "type": "string" }
+    },
+    "required": ["id", "nome"]
+  }
+}

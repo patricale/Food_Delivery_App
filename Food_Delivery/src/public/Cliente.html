@@ -1,0 +1,113 @@
+
+<!-- Di Stasi Alessandro 358140-->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    
+    <script>
+    (function() {
+        
+        const token = localStorage.getItem('jwt_token'); 
+        if (!token) {
+            window.location.href = 'index.html';
+        }
+    })();
+</script>
+    <meta charset="UTF-8">
+    <title>Area Cliente - Food Delivery Campus</title>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body class="min-vh-100 d-flex flex-column">
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm" style="background-color: var(--fdc-primary) !important;">
+        <div class="container">
+            <div class="fdc-logo-box">
+                FOOD DELIVERY CAMPUS
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold" href="Cliente.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Storico.html">I Miei Ordini</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Profilo.html">Profilo</a>
+                    </li>
+                    <li class="nav-item d-flex">
+                        <button class="btn-fdc-light" id="logout-btn" onclick="window.location.href='index.html'">LOGOUT</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow-1 container py-5" id="app-content">
+        <div class="row">
+            
+            <div class="col-lg-8">
+                <h2 class="fw-bold mb-4">I nostri ristoranti</h2>
+                
+                <div id="restaurants-container" class="row">
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-warning" role="status"></div>
+                        <p class="text-muted mt-2">Caricamento ristoranti...</p>
+                    </div>
+                </div>
+
+                <div id="menu-section" class="mt-5 d-none">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3 id="menu-title" class="fw-bold text-primary mb-0">Menù</h3>
+                        <button onclick="$('#menu-section').addClass('d-none');" class="btn btn-sm btn-outline-secondary">Chiudi Menù</button>
+                    </div>
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body p-0">
+                            <div class="list-group list-group-flush" id="menu-container">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mt-4 mt-lg-0">
+                <div class="card shadow border-0 sticky-top" style="top: 20px;">
+                    <div class="card-header bg-warning text-dark fw-bold">
+                        Il Tuo Ordine
+                    </div>
+                    <div class="card-body">
+                        <div id="cart-items" class="mb-3">
+                            <p class="text-muted small text-center">Il carrello è vuoto.</p>
+                        </div>
+                        <div class="mt-3 mb-3">
+                            <label for="order-notes" class="form-label small fw-bold">Note per l'esercente (opzionale):</label>
+                            <textarea class="form-control text-muted small" id="order-notes" rows="2" maxlength="250" placeholder="Es. Senza cipolla, ben cotto... (max 250 car.)"></textarea>
+                        </div>
+                        <div class="d-flex justify-content-between fw-bold border-top pt-3">
+                            <span>Totale:</span>
+                            <span id="cart-total">€0.00</span>
+                        </div>
+                        
+                        <button id="btn-order" class="btn btn-dark w-100 mt-3" disabled>Carrello Vuoto</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="fdc-footer mt-auto">
+        <div class="container text-center">
+            <p class="small mb-0">© 2026 Food Delivery Campus - Università di Parma</p>
+        </div>
+    </footer>
+
+    <script src="vendor/JQuery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="js/Cliente_Presenter.js"></script>
+
+</body>
+</html>

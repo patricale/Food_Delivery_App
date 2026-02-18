@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Auth Response",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string", "enum": ["success", "error"] },
+    "token": { "type": "string", "description": "Token JWT per chiamate stateless" },
+    "user": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "ruolo": { "type": "string", "enum": ["cliente", "esercente"] }
+      },
+      "required": ["id", "nome", "ruolo"]
+    }
+  },
+  "required": ["status", "token", "user"]
+}

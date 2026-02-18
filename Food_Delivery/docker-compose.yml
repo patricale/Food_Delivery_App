@@ -1,0 +1,52 @@
+services:
+  # 1) DATABASE
+  db:
+    image: mysql:8.0
+    container_name: food_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: food_delivery_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      # Inizializzazione automatica delle tabelle dall'ER
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - food_net
+
+  # 2) BACKEND
+  backend:
+    build: 
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    container_name: food_api
+    ports:
+      - "8001:80"
+    volumes:
+      # Mappatura della logica di business (models e handlers)
+      - ./src/api:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - food_net
+
+  # 3) FRONTEND
+  frontend:
+    image: nginx:alpine
+    container_name: food_client
+    ports:
+      - "8000:80"
+    volumes:
+      # Mappatura dell'interfaccia (HTML, CSS, JS e librerie locali)
+      - ./src/public:/usr/share/nginx/html:ro
+    networks:
+      - food_net
+
+networks:
+  food_net:
+    driver: bridge
+
+volumes:
+  db_data:

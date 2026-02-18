@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Menu Details",
+  "type": "object",
+  "properties": {
+    "ristorante_id": { "type": "integer" },
+    "piatti": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "nome": { "type": "string" },
+          "prezzo": { "type": "number" },
+          "disponibile": { "type": "boolean" }
+        },
+        "required": ["id", "nome", "prezzo"]
+      }
+    }
+  }
+}

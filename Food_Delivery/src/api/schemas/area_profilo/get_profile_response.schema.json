@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Profilo Utente Response",
+  "type": "object",
+  "required": ["id", "email", "ruolo"],
+  "properties": {
+    "id": { "type": "integer" },
+    "email": { "type": "string", "format": "email" },
+    "ruolo": { "type": "string", "enum": ["studente", "esercente, docente"] }
+  },
+  "oneOf": [
+    {
+      "title": "Dati Cliente",
+      "required": ["nome", "cognome", "matricola"],
+      "properties": {
+        "nome": { "type": "string" },
+        "cognome": { "type": "string" },
+        "matricola": { "type": "string" }
+      }
+    },
+    {
+      "title": "Dati Esercente",
+      "required": ["ragione_sociale", "p_iva", "indirizzo_ritiro"],
+      "properties": {
+        "ragione_sociale": { "type": "string" },
+        "p_iva": { "type": "string", "pattern": "^[0-9]{11}$" },
+        "indirizzo_ritiro": { "type": "string" },
+        "descrizione": { "type": ["string", "null"] }
+      }
+    }
+  ]
+}

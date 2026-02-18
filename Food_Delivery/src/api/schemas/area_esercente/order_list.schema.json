@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Order List",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "ordine_id": { "type": "string" },
+      "timestamp": { "type": "string", "format": "date-time" },
+      "totale": { "type": "number" },
+      "stato": { 
+        "type": "string", 
+        "enum": [
+          "attesa", 
+          "accettato", 
+          "rifiutato", 
+          "preparazione", 
+          "pronto", 
+          "ritirato", 
+          "nonRitirato"
+        ] 
+      },
+      "articoli": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    },
+    "required": ["ordine_id", "stato", "totale"]
+  }
+}

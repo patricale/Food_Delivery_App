@@ -1,0 +1,49 @@
+<!-- Sale Mario Matricola:364432 -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Food Delivery Campus</title>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/global.css">
+
+    <style>
+        body {
+            background-color: #f2f2f2 !important;
+        }
+
+        #app {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 20px;
+            animation: fadeIn 0.35s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body class="min-vh-100 d-flex flex-column">
+
+    <div id="app" class="flex-grow-1 w-100"></div>
+
+    <script type="module">
+        import { AuthPresenter } from './js/presenter/AuthPresenter.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const viewType = params.get('view');
+
+            if (viewType === 'register') {
+                new AuthPresenter('register');
+            } else {
+                new AuthPresenter('login');
+            }
+        });
+    </script>
+</body>
+</html>

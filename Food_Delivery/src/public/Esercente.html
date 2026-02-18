@@ -1,0 +1,127 @@
+<!-- SVOLTO DA Andrea Poccetti, MATR. 361127 -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    
+    <script>
+        (function() {
+            
+            const token = localStorage.getItem('jwt_token'); 
+            if (!token) {
+                window.location.href = 'index.html';
+            }
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <title>Dashboard Esercente</title>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="icon" href="data:,">
+    <style>
+        body { background-color: var(--fdc-bg, #f5f7f9); }
+        .navbar-custom { background-color: var(--fdc-white, #ffffff); border-bottom: 1px solid rgba(0,0,0,0.08); padding-top: 15px; padding-bottom: 0; }
+        .brand-text { color: var(--fdc-primary, #d35400); font-weight: 800; font-size: 1.5rem; text-decoration: none; line-height: 1; margin-bottom: 4px; display: block; }
+        .shop-name-header { color: #4d5564; font-weight: 700; font-size: 1rem; line-height: 1.2; }
+        .nav-links-container { margin-top: 15px; display: flex; gap: 15px; margin-left: -6px; }
+        .nav-link-custom { color: #4d5564; font-weight: 400; font-size: 1.1rem; padding: 10px 10px 8px 10px !important; text-decoration: none; border-bottom: 3px solid transparent; transition: var(--fdc-transition, all 0.2s); margin-bottom: -1px; }
+        .nav-link-custom:hover { color: var(--fdc-primary, #d35400); }
+        .nav-link-custom.active { color: #ffffff !important; border-bottom: none !important; position: relative; color: #ffffff !important;}
+        .nav-link-custom.active::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 8px; height: 2px; background-color: #ffffff; border-radius: 2px; }
+        .header-right { display: flex; align-items: center; gap: 20px; align-self: center; margin-bottom: 10px; }
+        .switch-box { background-color: #ffffff; padding: 6px 16px; border-radius: 50px; border: 1px solid #e9ecef; display: flex; align-items: center; gap: 10px; }
+        #header-status-label { color: #d35400 !important; font-weight: 700; }
+        .form-switch .form-check-input { box-shadow: none !important; width: 2.5em; height: 1.3em; cursor: pointer; margin-top: 0; background-color: #adb5bd5f !important; border-color: #adb5bd63 !important; }
+        .form-switch .form-check-input:checked { background-color: #ffffff !important; border-color: #d35400 !important; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23d35400'/%3e%3c/svg%3e") !important; }
+        .form-switch .form-check-input:focus { box-shadow: none !important; outline: none !important; border-color: #adb5bd63 !important; filter: none !important; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.5%29'/%3e%3c/svg%3e") !important; }
+        .form-switch .form-check-input:checked:focus { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23d35400'/%3e%3c/svg%3e") !important; border-color: #d35400 !important; }
+        .profile-icon { color: var(--fdc-primary, #d35400); transition: color 0.2s; }
+        .profile-icon:hover { color: var(--fdc-primary-dark, #ba4a00); }
+        .kanban-column { display: flex; flex-direction: column; height: calc(100vh - 220px); }
+        .kanban-header-card { border-radius: 12px; padding: 10px 15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); font-weight: 700; display: flex; justify-content: space-between; align-items: center; font-size: 1.0rem; letter-spacing: 0.5px; }
+        .header-orange { background-color: #faedd7; border: 2px solid #fcae4e; color: #6f3017; }
+        .header-orange .badge { background-color: #cc4e02 !important; color: white !important; }
+        .header-blue { background-color: #dfeafc; border: 2px solid #7cb5ec; color: #2c3a89; }
+        .header-blue .badge { background-color: #1a5cff !important; color: white !important; }
+        .header-green { background-color: #e4fbe8; border: 2px solid #6fcf83; color: #2b5230; }
+        .header-green .badge { background-color: #218c35 !important; color: white !important; }
+        .kanban-body-list { background-color: #eef2f5; border-radius: 12px; padding: 15px; flex-grow: 1; overflow-y: auto; border: 1px solid #dee2e6; }
+        .order-card { background: white; border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #eaeaea; border-left: 5px solid transparent; transition: transform 0.2s; }
+        .order-card:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .border-attesa { border-left-color: #cc4e02; }
+        .border-prep { border-left-color: #1a5cff; }
+        .border-pronto { border-left-color: #218c35; }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="navbar-custom sticky-top shadow-sm" style="background-color: var(--fdc-primary) !important; border-bottom: none;">
+    <div class="container d-flex justify-content-between"> 
+        <div class="d-flex flex-column">
+            <a href="#" class="brand-text text-white" style="color: white !important;">FOOD DELIVERY CAMPUS</a>
+            <div class="shop-name-header text-white" id="shop-name-display" style="color: white !important;">Caricamento...</div>
+            <div class="nav-links-container">
+                <a href="#" class="nav-link-custom active text-white" data-section="ordini" style="color: white !important;">Ordini</a>
+                <a href="#" class="nav-link-custom text-white" data-section="menu" style="color: white !important;">Gestione Menu</a>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="switch-box">
+                <span id="header-status-label" class="small fw-bold text-uppercase text-white">...</span>
+                <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" id="header-toggle-apertura">
+                </div>
+            </div>
+            <div id="profile-btn" class="d-flex align-items-center text-white" style="cursor: pointer;" title="Profilo Utente">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-person-circle profile-icon" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <main class="container py-4 flex-grow-1">
+        <div id="dashboard-content" class="fade-in h-100">
+            <div class="text-center py-5"><div class="spinner-border text-primary" role="status"></div></div>
+        </div>
+    </main>
+
+    <footer class="fdc-footer mt-auto">
+        <div class="container text-center">
+            <p class="small mb-0">© 2026 Food Delivery Campus - Università di Parma</p>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="modalAggiungiPiatto" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-0 pb-0"><h5 class="modal-title fw-bold">Nuovo Prodotto</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body">
+                    <form id="formAggiungiPiatto">
+                        <div class="mb-3"><label class="small fw-bold text-muted">NOME PIATTO</label><input type="text" class="form-control bg-light border-0" id="input-nome" required></div>
+                        <div class="row">
+                            <div class="col-6 mb-3"><label class="small fw-bold text-muted">CATEGORIA</label><select class="form-select bg-light border-0" id="input-categoria"><option value="Primi">Primi</option><option value="Secondi">Secondi</option><option value="Pizze">Pizze</option><option value="Bevande">Bevande</option><option value="Dolci">Dolci</option></select></div>
+                            <div class="col-6 mb-3"><label class="small fw-bold text-muted">PREZZO (€)</label><input type="number" step="0.01" min="0.01" class="form-control bg-light border-0" id="input-prezzo" required></div>
+                        </div>
+                        <div class="mb-3"><label class="small fw-bold text-muted">DESCRIZIONE</label><textarea class="form-control bg-light border-0" id="input-descrizione" rows="2"></textarea></div>
+                        <div class="d-grid mt-4"><button type="submit" class="btn btn-fdc fw-bold py-2">SALVA</button></div>
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalConfermaNonRitirato" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0 shadow"><div class="modal-header border-0 pb-0"><h5 class="modal-title fw-bold">Conferma Operazione</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body py-3"><p class="text-muted mb-0">Sei sicuro di voler segnare l'ordine come <strong class="text-dark">NON RITIRATO</strong>? Questa azione non può essere annullata.</p></div><div class="modal-footer border-0 pt-0"><button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Annulla</button><button type="button" id="btn-conferma-non-ritirato-submit" class="btn btn-rifiuta rounded-pill px-4 fw-bold">Conferma</button></div></div></div></div>
+
+    <div class="modal fade" id="modalSuccessoRitiro" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-sm"><div class="modal-content border-0 shadow text-center"><div class="modal-body py-5"><div class="mb-4 d-flex justify-content-center"><div class="rounded-circle bg-success bg-opacity-10 p-3"><i data-lucide="check-circle" style="width: 60px; height: 60px; color: #198754;"></i></div></div><h4 class="fw-bold text-dark">Ritiro Confermato!</h4><p class="text-muted mb-0">L'ordine è stato consegnato con successo.</p></div></div></div></div>
+
+    <div class="modal fade" id="modalConfermaEliminazione" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0 shadow"><div class="modal-header border-0 pb-0"><h5 class="modal-title fw-bold text-danger">Elimina Piatto</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body py-3"><p class="text-muted mb-0">Sei sicuro di voler eliminare questo piatto dal menu? <br><strong>L'azione è irreversibile.</strong></p></div><div class="modal-footer border-0 pt-0"><button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Annulla</button><button type="button" id="btn-conferma-eliminazione-submit" class="btn btn-rifiuta rounded-pill px-4 fw-bold">Elimina</button></div></div></div></div>
+
+    <script src="vendor/JQuery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/Esercente_Model.js"></script>
+    <script src="js/Esercente_View.js"></script>
+    <script src="js/Esercente_Presenter.js"></script>
+</body>
+</html>

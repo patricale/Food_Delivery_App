@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Shared Order Item",
+  "description": "Struttura unificata per la visualizzazione di un ordine (Passato o Attivo).",
+  "type": "object",
+  "required": ["data", "totale", "stato", "ristorante", "dettagli"],
+  "properties": {
+    "data": { "type": "string", "format": "date-time" },
+    "totale": { "type": "number" },
+    "stato": { 
+      "type": "string", 
+      "enum": [
+        "attesa", 
+        "accettato", 
+        "preparazione", 
+        "pronto", 
+        "ritirato", 
+        "rifiutato", 
+        "nonRitirato"
+      ],
+      "description": "Valori esatti mappati dall'ENUM del database MySQL."
+    },
+    "ristorante": { "type": "string" },
+    "dettagli": { "type": "string" },
+    "codice_ritiro": { "type": "string" },
+    "note": { "type": ["string", "null"] }
+  }
+}

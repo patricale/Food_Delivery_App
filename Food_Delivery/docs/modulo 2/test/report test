@@ -1,0 +1,74 @@
+Report di Collaudo Tecnico: Modulo Ordini
+Data: 12 Febbraio 2026
+Alessandro Di Stasi 358140
+
+Modulo: Gestione Ordini & Storico (Backend)
+
+File di Test: src/api/orders/test_orders_runner.php
+
+Target API: src/api/orders/Get_History.php
+
+Esito: ✅ SUPERATO (100%)
+
+1. Riepilogo Esecutivo
+Il presente documento certifica il corretto funzionamento delle API di gestione ordini. I test di integrazione automatici hanno confermato la stabilità del Backend, la correttezza della logica di business (Pattern Strategy) e la perfetta interoperabilità con il Frontend tramite formattazione JSON.
+
+Tutti i componenti critici (Database, Autenticazione, Mapping Dati) rispondono secondo le specifiche di progetto.
+
+2. Ambiente di Test
+Il collaudo è stato eseguito simulando un ambiente di produzione reale all'interno dell'ecosistema Docker:
+
+Attore Simulato: Utente Cliente (ID: 2 - Giulia Bianchi)
+
+Protocollo: Richiesta HTTP interna (Loopback) su porta 80.
+
+Autenticazione: Token JWT (JSON Web Token) generato dinamicamente.
+
+Formato Output: JSON (MIME type: application/json).
+
+3. Dettaglio delle Verifiche Superate
+Di seguito sono riportati i risultati dei singoli step di verifica eseguiti dallo script di test runner.
+
+✅ 3.1 Connettività Database
+Obiettivo: Verificare l'accesso al container MySQL.
+
+Risultato: La classe Database.php stabilisce la connessione PDO senza latenze o errori di credenziali.
+
+✅ 3.2 Sicurezza e Autenticazione
+Obiettivo: Validare il meccanismo di protezione delle rotte API.
+
+Risultato: Il sistema accetta il Token JWT contenente il payload {'id': 2, 'ruolo': 'cliente'}.
+
+Nota Tecnica: Risolto il conflitto di denominazione delle chiavi (id vs id_utente), garantendo ora la piena compatibilità con il modulo di Login.
+
+✅ 3.3 Logica di Business (Pattern Strategy)
+Obiettivo: Verificare che le classi Repository e Strategy (Modulo Storico) vengano invocate correttamente.
+
+Risultato: L'API esegue correttamente le query dinamiche in base ai filtri (all, active, past) recuperando lo storico ordini dell'utente.
+
+✅ 3.4 Data Mapping & Adapter
+Obiettivo: Garantire che i dati grezzi del database siano conformi alle aspettative del Frontend (JavaScript).
+
+Risultato: L'Adapter implementato nel controller Get_History.php trasforma correttamente i campi:
+
+data_ora ➝ data (Visualizzata correttamente nello storico).
+
+ristorante_nome ➝ ristorante.
+
+Struttura root ➝ Array incapsulato nella chiave records.
+
+4. Output del Test (Estratto)
+Il test runner ha prodotto il seguente output di conferma, validando la presenza e la correttezza dei dati:
+
+Plaintext
+[SUCCESSO] Test Superato. L'API ha risposto correttamente.
+-------------------------------------------------------
+Numero ordini trovati: [X]
+Dettagli primo ordine:
+ - Ristorante: [Nome Ristorante Corretto]
+ - Data:       [AAAA-MM-GG HH:MM:SS]
+ - Totale:     [Valore Numerico]
+ - Stato:      [Stato Ordine]
+-------------------------------------------------------
+5. Conclusioni
+Il Modulo 2 (Ordini) è dichiarato STABILE. L'implementazione dell'Adapter API ha risolto le discrepanze di formato dati, rendendo il sistema backend pienamente compatibile con l'interfaccia utente sviluppata. Nessuna ulteriore revisione architetturale è richiesta.
