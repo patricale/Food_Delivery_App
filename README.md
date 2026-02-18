@@ -1,4 +1,3 @@
-# Progetto T21
 # UniPr Food Delivery
 
 Questo repository ospita il codice sorgente e l'infrastruttura per il sistema di gestione delle ordinazioni alimentari dell'Università di Parma. Il progetto adotta un'architettura a microservizi containerizzata per garantire la massima portabilità e coerenza dell'ambiente di sviluppo tra i vari collaboratori.
@@ -23,7 +22,7 @@ Per l'esecuzione e lo sviluppo del progetto è necessaria l'installazione dei se
 Seguire i passaggi indicati di seguito per configurare l'ambiente di lavoro sulla propria macchina locale:
 
 1. **Clonazione del Progetto** Scaricare i file sorgente tramite il comando:  
-   `git clone https://github.com/Progetti-ING-SW-INFO-UniPR/INGSW-2526-T21.git`
+   `git clone https://github.com/Food_Delivery_App`
 
 2. **Accesso alla Directory** Posizionarsi nella cartella radice del progetto:  
    `cd food-delivery`
