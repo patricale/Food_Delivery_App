@@ -22,7 +22,7 @@ Per l'esecuzione e lo sviluppo del progetto è necessaria l'installazione dei se
 Seguire i passaggi indicati di seguito per configurare l'ambiente di lavoro sulla propria macchina locale:
 
 1. **Clonazione del Progetto** Scaricare i file sorgente tramite il comando:  
-   `git clone https://github.com/Food_Delivery_App`
+   `git clone https://github.com/patricale/Food_Delivery_App`
 
 2. **Accesso alla Directory** Posizionarsi nella cartella radice del progetto:  
    `cd food-delivery`
